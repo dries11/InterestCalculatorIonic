@@ -1,3 +1,19 @@
-.headers{
-    color: color($colors, dark)
+ion-card{
+    text-align: center;
+}
+
+ion-header{
+    color: color($colors, primary);
+    text-align: center;
+}
+
+.card{
+    border: 3px solid black;
+    button{
+        color: color($colors, secondary);
+    }
+}
+
+ion-content{
+    background-image: url("./assets/BrooklynBridge.png");
 }
