@@ -8,20 +8,34 @@
 </ion-header>
 
 <ion-content padding>
+
   <ion-card class="card">
     <ion-card-header>
-      Create an Account with Simple Interest
+      Create an Account
     </ion-card-header>
     <ion-card-content>
-      <button ion-button>Create Account</button>
+      <ion-grid>
+        <ion-row>
+          <ion-col width-33>
+            <button ion-button color="primary">Checking</button>
+          </ion-col>
+          <ion-col width-33>
+            <button ion-button color="primary">Savings</button>
+          </ion-col>
+          <ion-col width-33>
+            <button ion-button color="primary">Money Market</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
-  <ion-card>
+
+  <ion-card class="card">
     <ion-card-header>
-      Create an Account with Compound Interest
+      Interest Forecast Calculation
     </ion-card-header>
     <ion-card-content>
-      <button ion-button>Create Account</button>
+      <button ion-button color="primary">Calculate Future Interest</button>
     </ion-card-content>
   </ion-card>
 </ion-content>
