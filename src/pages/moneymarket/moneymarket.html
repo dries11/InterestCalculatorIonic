@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      K.Q. Norton Dart Bank Interest Calculation Bank System - Create A New Money Market Account
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card>
+    <ion-card-header>
+      Create A New Money Market Account
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col width-33>
+            <ion-item>
+              <ion-label floating>Account Type</ion-label>
+              <ion-input readonly="true" disabled="true" value="Money Market"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col width-33>
+            <ion-item>
+              <ion-label floating>Enter the starting balance</ion-label>
+              <ion-input type="number" min="10000"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col width-33>
+            <ion-item>
+              <ion-label floating>Interest Rate</ion-label>
+              <ion-input readonly="true" disabled="true" value="5"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col width-33>
+            <ion-item>
+              <ion-label floating>Overdraft Penalty</ion-label>
+              <ion-input readonly="true" disabled="true" value="30"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col width-33>
+            <ion-item>
+              <ion-label floating>Required Minimum Balance</ion-label>
+              <ion-input readonly="true" disabled="true" value="10000"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col width-33>
+            <ion-item>
+              <ion-label floating>Monetary Amount of Recurring Transactions</ion-label>
+              <ion-input type="number" min="0"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <button ion-button (click)="showConfirm()">Submit</button>
+    </ion-card-content>
+  </ion-card>  
+</ion-content>

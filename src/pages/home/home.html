@@ -2,7 +2,7 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>
-      K.Q. Norton Dart Bank Interest Calculation System
+      K.Q. Norton Dart Bank Interest Calculation Bank System
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -17,13 +17,13 @@
       <ion-grid>
         <ion-row>
           <ion-col width-33>
-            <button ion-button color="primary">Checking</button>
+            <button ion-button color="primary" [navPush]="checkingPage">Checking</button>
           </ion-col>
           <ion-col width-33>
-            <button ion-button color="primary">Savings</button>
+            <button ion-button color="primary" [navPush]="savingPage">Savings</button>
           </ion-col>
           <ion-col width-33>
-            <button ion-button color="primary">Money Market</button>
+            <button ion-button color="primary" [navPush]="moneyMarketPage">Money Market</button>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -35,7 +35,7 @@
       Interest Forecast Calculation
     </ion-card-header>
     <ion-card-content>
-      <button ion-button color="primary">Calculate Future Interest</button>
+      <button ion-button color="primary" [navPush]="calculateFutureInterestPage">Calculate Future Interest</button>
     </ion-card-content>
   </ion-card>
 </ion-content>
