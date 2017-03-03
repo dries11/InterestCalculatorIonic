@@ -9,8 +9,9 @@ import { AlertController } from 'ionic-angular'
 
 export class MoneyMarketPage{
 
-    constructor(public navCtrl:NavController, public alertCtrl:AlertController){
+    public recurringTransactions: any = [];
 
+    constructor(public navCtrl:NavController, public alertCtrl:AlertController){
     }
 
     showConfirm(){
@@ -33,5 +34,43 @@ export class MoneyMarketPage{
             ]
         })
         confirm.present();
+        console.log(this.recurringTransactions);
+    }
+
+    showPrompt(): any{
+        let prompt = this.alertCtrl.create({
+            title: "Add Recurring Transaction",
+            message: "Enter the amount, date, and description",
+            inputs: [
+                {
+                    name: 'Amount',
+                    placeholder: 'Amount'
+                },
+                {
+                    name: 'Date',
+                    placeholder: 'MM-DD'
+                },
+                {
+                    name: 'Description',
+                    placeholder: 'Describe the Transaction'
+                }
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: data => {
+                        console.log("Cancel clicked");
+                    }
+                },
+                {
+                    text: 'Add',
+                    handler: data => {
+                            console.log(data);
+                            this.recurringTransactions.push(data);
+                        }
+                }
+            ]
+        });
+        prompt.present();
     }
 }
