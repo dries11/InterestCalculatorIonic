@@ -48,6 +48,45 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+      <button ion-button icon-right (click)="showPrompt()">
+        Add Recuring Transaction
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+      <ion-list>
+        <ion-list-header>
+          Recurring Transactions
+        </ion-list-header>
+        <ion-grid>
+          <ion-row>
+            <ion-col width-25>
+              Amount
+            </ion-col>
+            <ion-col width-25>
+              Date
+            </ion-col>
+            <ion-col width-50>
+              Description
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col width-25>
+              <ion-item *ngFor="let transaction of recurring Transactions">
+              {{transaction.Amount}}
+              </ion-item>
+            </ion-col>
+            <ion-col width-25>
+              <ion-item *ngFor="let transaction of recurring Transactions">
+                {{transaction.Date}}
+              </ion-item>
+            </ion-col>
+            <ion-col width-50>
+            <ion-item *ngFor="let transaction of recurring Transactions">
+              {{transaction.Description}}
+            </ion-item>
+          </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-list>    
       <button ion-button (click)="showConfirm()">Submit</button>
     </ion-card-content>
   </ion-card>   
