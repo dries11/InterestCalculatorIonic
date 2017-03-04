@@ -9,6 +9,7 @@ import { AlertController } from 'ionic-angular'
 
 export class MoneyMarketPage{
 
+    public transaction: any;
     public recurringTransactions: any = [];
 
     constructor(public navCtrl:NavController, public alertCtrl:AlertController){
@@ -37,7 +38,7 @@ export class MoneyMarketPage{
         console.log(this.recurringTransactions);
     }
 
-    showPrompt(): any{
+    addTransaction(): any{
         let prompt = this.alertCtrl.create({
             title: "Add Recurring Transaction",
             message: "Enter the amount, date, and description",
@@ -65,12 +66,50 @@ export class MoneyMarketPage{
                 {
                     text: 'Add',
                     handler: data => {
-                            console.log(data);
-                            this.recurringTransactions.push(data);
+                            this.transaction = data;
+                            this.recurringTransactions.push(this.transaction);
                         }
                 }
             ]
         });
         prompt.present();
+    }
+    editTransaction(transaction){
+        let prompt = this.alertCtrl.create({
+            title: 'Edit Transactions',
+            inputs: [{
+                name:'Amount',
+                placeholder: 'Amount'
+            },
+            {
+                name:'Date',
+                placeholder:'MM-DD'
+            },
+            {
+                name:'Description',
+                placeholder:'Describe the Transaction'
+            }],
+            buttons: [{
+                text: 'Cancel'
+            },
+            {
+                text: 'Save',
+                handler: data => {
+                    let index = this.recurringTransactions.indexOf(transaction);
+                    if(index > -1){
+                        this.recurringTransactions[index] = data;
+                    }
+                }
+            }
+            ]
+        });
+        prompt.present();
+    }
+
+    deleteTransaction(transaction){
+        let index = this.recurringTransactions.indexOf(transaction);
+        if(index > -1){
+            this.recurringTransactions.splice(index,1);
+        }
     }
 }
