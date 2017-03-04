@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular'
+import { AlertController } from 'ionic-angular';
+import { UserService } from '../../services/user'; 
+
 
 @Component({
     selector: 'moneymarket-page',
@@ -8,11 +10,11 @@ import { AlertController } from 'ionic-angular'
 })
 
 export class MoneyMarketPage{
-
+    private user: any;
     public transaction: any;
     public recurringTransactions: any = [];
 
-    constructor(public navCtrl:NavController, public alertCtrl:AlertController){
+    constructor(public navCtrl:NavController, public alertCtrl:AlertController, user:UserService){
     }
 
     showConfirm(){

@@ -6,6 +6,7 @@ import { CalculateFutureInterestPage } from '../pages/calculatefutureinterest/ca
 import { CheckingPage } from '../pages/checking/checking';
 import { MoneyMarketPage } from '../pages/moneymarket/moneymarket';
 import { SavingPage } from '../pages/saving/saving'
+import { UserService } from '../services/user'; 
 
 @NgModule({
   declarations: [
@@ -28,6 +29,6 @@ import { SavingPage } from '../pages/saving/saving'
     MoneyMarketPage,
     SavingPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserService ]
 })
 export class AppModule {}

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { UserService } from '../../services/user'; 
 
 @Component({
     selector: 'checking-page',
@@ -11,8 +12,9 @@ export class CheckingPage{
     public transaction: any;
     public recurringTransactions: any = [];
 
-    constructor(public navCtrl:NavController, public alertCtrl:AlertController){}
-    
+    constructor(public navCtrl:NavController, public alertCtrl:AlertController, public user:UserService){
+    }
+
     showConfirm(){
         let confirm = this.alertCtrl.create({
             title: "Are you sure?",
@@ -34,41 +36,80 @@ export class CheckingPage{
         })
         confirm.present();
         console.log(this.recurringTransactions);
-}
-        showPrompt(): any{
-            let prompt = this.alertCtrl.create({
-                title: "Add Recurring Transaction",
-                message: "Enter the amount, date, and desription",
-                inputs: [
-                    {
-                        name: ' Amount',
-                        placeholder: 'Amount'
-                    },
-                    {
-                      name: 'Date',
-                      placeholder: 'MM-DD'  
-                    },
-                    {
-                        name: 'Description',
-                        placeholder: ' Describe the Transaction'
-                    }
-                ],
-                buttons: [
-                 {
-                    text: ' Cancel',
-                    handler: data=>{
+    }
+
+    addTransaction(): any{
+        let prompt = this.alertCtrl.create({
+            title: "Add Recurring Transaction",
+            message: "Enter the amount, date, and description",
+            inputs: [
+                {
+                    name: 'Amount',
+                    placeholder: 'Amount'
+                },
+                {
+                    name: 'Date',
+                    placeholder: 'MM-DD'
+                },
+                {
+                    name: 'Description',
+                    placeholder: 'Describe the Transaction'
+                }
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: data => {
                         console.log("Cancel clicked");
                     }
+                },
+                {
+                    text: 'Add',
+                    handler: data => {
+                            this.transaction = data;
+                            this.recurringTransactions.push(this.transaction);
+                        }
+                }
+            ]
+        });
+        prompt.present();
+    }
+    editTransaction(transaction){
+        let prompt = this.alertCtrl.create({
+            title: 'Edit Transactions',
+            inputs: [{
+                name:'Amount',
+                placeholder: 'Amount'
             },
             {
-                text: 'Add',
-                handler: data =>{
-                    this.transaction = data;
-                    this.recurringTransactions.push(this.transaction);
+                name:'Date',
+                placeholder:'MM-DD'
+            },
+            {
+                name:'Description',
+                placeholder:'Describe the Transaction'
+            }],
+            buttons: [{
+                text: 'Cancel'
+            },
+            {
+                text: 'Save',
+                handler: data => {
+                    let index = this.recurringTransactions.indexOf(transaction);
+                    if(index > -1){
+                        this.recurringTransactions[index] = data;
+                    }
                 }
             }
-                ]
-            })
+            ]
+        });
         prompt.present();
+    }
+
+    deleteTransaction(transaction){
+        let index = this.recurringTransactions.indexOf(transaction);
+        if(index > -1){
+            this.recurringTransactions.splice(index,1);
+        }
     }
 }
