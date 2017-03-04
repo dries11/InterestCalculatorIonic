@@ -8,6 +8,8 @@ import { AlertController } from 'ionic-angular';
 })
 
 export class CheckingPage{
+    public transaction: any;
+    public recurringTransactions: any = [];
 
     constructor(public navCtrl:NavController, public alertCtrl:AlertController){}
     
@@ -31,6 +33,42 @@ export class CheckingPage{
             ]
         })
         confirm.present();
+        console.log(this.recurringTransactions);
+}
+        showPrompt(): any{
+            let prompt = this.alertCtrl.create({
+                title: "Add Recurring Transaction",
+                message: "Enter the amount, date, and desription",
+                inputs: [
+                    {
+                        name: ' Amount',
+                        placeholder: 'Amount'
+                    },
+                    {
+                      name: 'Date',
+                      placeholder: 'MM-DD'  
+                    },
+                    {
+                        name: 'Description',
+                        placeholder: ' Describe the Transaction'
+                    }
+                ],
+                buttons: [
+                 {
+                    text: ' Cancel',
+                    handler: data=>{
+                        console.log("Cancel clicked");
+                    }
+            },
+            {
+                text: 'Add',
+                handler: data =>{
+                    this.transaction = data;
+                    this.recurringTransactions.push(this.transaction);
+                }
+            }
+                ]
+            })
+        prompt.present();
     }
-
 }
