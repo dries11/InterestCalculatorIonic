@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from 'ionic-angular';
 
 @Component({
@@ -8,6 +9,19 @@ import { NavController } from 'ionic-angular';
 
 export class CalculateFutureInterestPage{
 
-    constructor(public navCtrl:NavController){}
+    @ViewChild('interestSlides') interestSlides: any;
+
+    interestSlideOne: FormGroup;
+    interestSlideTwo: FormGroup;
+
+    constructor(public navCtrl:NavController, public formBuilder: FormBuilder){}
+
+    next(){
+        this.interestSlides.slideNext();
+    }
+
+    back(){
+        this.interestSlides.slidePrev();
+    }
     
 }

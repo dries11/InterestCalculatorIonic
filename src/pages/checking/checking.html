@@ -22,13 +22,16 @@
               <ion-input formControlName="firstName" type="text" [class.invalid]="!checkingAccountForm.controls.firstName.valid && (checkingAccountForm.controls.firstName.dirty || submitAttempt)"></ion-input>
             </ion-item>
             <ion-item *ngIf="!checkingAccountForm.controls.firstName.valid && (checkingAccountForm.controls.dirty || submitAttempt)">
-              <p>Please enter a valid name</p>
+              <p>Please enter a valid first name</p>
             </ion-item>
           </ion-col>
           <ion-col width-50>
             <ion-item>
               <ion-label floating>Last Name</ion-label>
-              <ion-input formControlName="lastName" type="text"></ion-input>
+              <ion-input formControlName="lastName" type="text" [class.invalid]="!checkingAccountForm.controls.lastName.valid && (checkingAccountForm.controls.lastName.dirty || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!checkingAccountForm.controls.lastName.valid && (checkingAccountForm.controls.dirty || submitAttempt)">
+              <p>Please enter a valid last name</p>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -42,7 +45,10 @@
           <ion-col width-33>
             <ion-item>
               <ion-label floating>Starting Balance</ion-label>
-              <ion-input formControlName="startingBalance" type="number"></ion-input>
+              <ion-input formControlName="startingBalance" type="number" [class.invalid]="!checkingAccountForm.controls.startingBalance.valid && (checkingAccountForm.controls.startingBalance.dirty || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!checkingAccountForm.controls.startingBalance.valid && (checkingAccountForm.controls.dirty || submitAttempt)">
+              <p>Please enter a valid starting balance</p>
             </ion-item>
           </ion-col>
           <ion-col width-33>
