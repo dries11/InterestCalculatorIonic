@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from 'ionic-angular';
+import { CheckingBalanceValidator } from '../../validators/checkingBalance';
 
 @Component({
     selector: 'checking-page',
@@ -8,10 +10,26 @@ import { AlertController } from 'ionic-angular';
 })
 
 export class CheckingPage{
+
+    @ViewChild('createAccountCard') createAccountCard: any;
+
+    checkingAccountForm: FormGroup;
+    submitAttempt: boolean = false;
+
     public transaction: any;
     public recurringTransactions: any = [];
 
-    constructor(public navCtrl:NavController, public alertCtrl:AlertController){}
+    constructor(public navCtrl:NavController, public alertCtrl:AlertController, public formBuilder: FormBuilder){
+        this.checkingAccountForm = formBuilder.group({
+            firstName:['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z]*'), Validators.required])],
+            lastName:['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z]*'), Validators.required])],
+            accountType:['Checking Account'],
+            startingBalance: ['', Validators.compose([Validators.required, CheckingBalanceValidator.isValid])],
+            interestRate: ['0'],
+            overdraftPenalty: ['30'],
+            requiredMinimumBalance: ['0']
+        });
+    }
     
     showConfirm(){
         let confirm = this.alertCtrl.create({
@@ -41,7 +59,7 @@ export class CheckingPage{
                 message: "Enter the amount, date, and desription",
                 inputs: [
                     {
-                        name: ' Amount',
+                        name: 'Amount',
                         placeholder: 'Amount'
                     },
                     {
@@ -70,5 +88,19 @@ export class CheckingPage{
                 ]
             })
         prompt.present();
+    }
+
+    submitClicked(){
+
+        this.submitAttempt = true;
+
+        if(this.checkingAccountForm.valid){
+            this.showConfirm();
+            console.log(this.checkingAccountForm.value);
+        }
+        else{
+            alert("Not able to proccess your request. Try again");
+        }
+
     }
 }
