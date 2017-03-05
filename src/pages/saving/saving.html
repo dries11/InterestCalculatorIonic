@@ -14,6 +14,20 @@
     <ion-card-content>
       <ion-grid>
         <ion-row>
+          <ion-col width-50>
+            <ion-item>
+              <ion-label floating>First Name</ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col width-50>
+            <ion-item>
+              <ion-label floating>Last Name</ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
           <ion-col width-33>
             <ion-item>
               <ion-label floating>Account Type</ion-label>
@@ -48,7 +62,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-      <button ion-button icon-right (click)="showPrompt()">
+      <button ion-button icon-right (click)="addTransaction()">
         Adding Recuring Transaction
         <ion-icon name="add-circle"></ion-icon>
       </button>
@@ -70,17 +84,17 @@
           </ion-row>
           <ion-row>
             <ion-col width-25>
-              <ion-item *ngFor="let transaction of recurringTransaction">
+              <ion-item *ngFor="let transaction of recurringTransactions">
                 {{transaction.Amount}}
               </ion-item>
             </ion-col>
             <ion-col width-25>    
-              <ion-item *ngFor="let transaction of recurringTransaction">
+              <ion-item *ngFor="let transaction of recurringTransactions">
                 {{transaction.Date}} 
               </ion-item>
             </ion-col>
             <ion-col width-50>
-            <ion-item *ngFor="let transaction of recurringTransaction">
+            <ion-item *ngFor="let transaction of recurringTransactions">
               {{transaction.Description}}
             </ion-item>
             </ion-col>
