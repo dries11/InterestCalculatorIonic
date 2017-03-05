@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from 'ionic-angular';
+import { NewAccount} from '../../services/newaccount';
+import { SearchAccount} from '../../services/searchaccount'
 import { CheckingBalanceValidator } from '../../validators/checkingBalance';
 
 @Component({
@@ -10,6 +12,16 @@ import { CheckingBalanceValidator } from '../../validators/checkingBalance';
 })
 
 export class CheckingPage{
+
+   private user: any;
+   public transaction: any;
+   public recurringTransactions: any = [];
+
+    constructor(public navCtrl:NavController, public alertCtrl:AlertController, public newAccountService:NewAccount,
+     public newSearchAccountService:SearchAccount){
+    }
+
+
 
     @ViewChild('createAccountCard') createAccountCard: any;
 
@@ -31,6 +43,7 @@ export class CheckingPage{
         });
     }
     
+
     showConfirm(){
         let confirm = this.alertCtrl.create({
             title: "Are you sure?",
@@ -39,19 +52,46 @@ export class CheckingPage{
                 {
                     text: 'Create',
                     handler:() => {
-                        console.log("Create clicked") //change this to submit function
+                        console.log("didSubmit()") //change this to submit function
                     }
                 },
                 {
                     text: 'Cancel',
                     handler: () => {
-                        console.log("Cancel clicked") //change to clear all fields
+                        console.log("didSubmit()") //change to clear all fields
                     }
                 }
             ]
         })
         confirm.present();
         console.log(this.recurringTransactions);
+
+    }
+
+    addTransaction(): any{
+        let prompt = this.alertCtrl.create({
+            title: "Add Recurring Transaction",
+            message: "Enter the amount, date, and description",
+            inputs: [
+                {
+                    name: 'Amount',
+                    placeholder: 'Amount'
+                },
+                {
+                    name: 'Date',
+                    placeholder: 'MM-DD'
+                },
+                {
+                    name: 'Description',
+                    placeholder: 'Describe the Transaction'
+                }
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: data => {
+                        console.log("didSubmit()");
+
 }
         showPrompt(): any{
             let prompt = this.alertCtrl.create({
@@ -76,19 +116,58 @@ export class CheckingPage{
                     text: ' Cancel',
                     handler: data=>{
                         console.log("Cancel clicked");
+
                     }
-            },
-            {
-                text: 'Add',
-                handler: data =>{
-                    this.transaction = data;
-                    this.recurringTransactions.push(this.transaction);
+                },
+                {
+                    text: 'Add',
+                    handler: data => {
+                            this.transaction = data;
+                            this.recurringTransactions.push(this.transaction);
+                        }
                 }
-            }
-                ]
-            })
+            ]
+        });
         prompt.present();
     }
+    editTransaction(transaction){
+        let prompt = this.alertCtrl.create({
+            title: 'Edit Transactions',
+            inputs: [{
+                name:'Amount',
+                placeholder: 'Amount'
+            },
+            {
+                name:'Date',
+                placeholder:'MM-DD'
+            },
+            {
+                name:'Description',
+                placeholder:'Describe the Transaction'
+            }],
+            buttons: [{
+                text: 'Cancel'
+            },
+            {
+                text: 'Save',
+                handler: data => {
+                    let index = this.recurringTransactions.indexOf(transaction);
+                    if(index > -1){
+                        this.recurringTransactions[index] = data;
+                    }
+                }
+            }
+            ]
+        });
+        prompt.present();
+    }
+
+
+    deleteTransaction(transaction){
+        let index = this.recurringTransactions.indexOf(transaction);
+        if(index > -1){
+            this.recurringTransactions.splice(index,1);
+        }
 
     submitClicked(){
 
@@ -101,6 +180,5 @@ export class CheckingPage{
         else{
             alert("Not able to proccess your request. Try again");
         }
-
     }
 }
