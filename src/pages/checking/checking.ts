@@ -27,7 +27,7 @@ export class CheckingPage{
             startingBalance: ['', Validators.compose([Validators.required, CheckingBalanceValidator.isValid])],
             interestRate: ['0'],
             overdraftPenalty: ['30'],
-            requiredMinimumBalance: ['0']
+            requiredMinimumBalance: ['0'],
         });
     }
     
