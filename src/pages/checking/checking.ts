@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-import { UserService } from '../../services/user'; 
+import { NewAccount} from '../../services/newaccount';
+import { SearchAccount} from '../../services/searchaccount'
 
 @Component({
     selector: 'checking-page',
@@ -9,10 +10,12 @@ import { UserService } from '../../services/user';
 })
 
 export class CheckingPage{
-    public transaction: any;
+   private user: any;
+   public transaction: any;
     public recurringTransactions: any = [];
 
-    constructor(public navCtrl:NavController, public alertCtrl:AlertController, public user:UserService){
+    constructor(public navCtrl:NavController, public alertCtrl:AlertController, public newAccountService:NewAccount,
+     public newSearchAccountService:SearchAccount){
     }
 
     showConfirm(){
@@ -23,13 +26,13 @@ export class CheckingPage{
                 {
                     text: 'Create',
                     handler:() => {
-                        console.log("Create clicked") //change this to submit function
+                        console.log("didSubmit()") //change this to submit function
                     }
                 },
                 {
                     text: 'Cancel',
                     handler: () => {
-                        console.log("Cancel clicked") //change to clear all fields
+                        console.log("didSubmit()") //change to clear all fields
                     }
                 }
             ]
@@ -60,7 +63,7 @@ export class CheckingPage{
                 {
                     text: 'Cancel',
                     handler: data => {
-                        console.log("Cancel clicked");
+                        console.log("didSubmit()");
                     }
                 },
                 {

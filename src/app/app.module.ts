@@ -6,7 +6,9 @@ import { CalculateFutureInterestPage } from '../pages/calculatefutureinterest/ca
 import { CheckingPage } from '../pages/checking/checking';
 import { MoneyMarketPage } from '../pages/moneymarket/moneymarket';
 import { SavingPage } from '../pages/saving/saving'
-import { UserService } from '../services/user'; 
+import { Http} from '@angualr/http';
+import { NewAccount} from '../services/newaccount';
+import { SearchAccount } from '../services/searchaccount'
 
 @NgModule({
   declarations: [
@@ -29,6 +31,6 @@ import { UserService } from '../services/user';
     MoneyMarketPage,
     SavingPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserService ]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, NewAccount, SearchAccount ]
 })
 export class AppModule {}

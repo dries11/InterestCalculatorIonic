@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-import { UserService } from '../../services/user'; 
+import { NewAccount } from '../../services/newaccount';
+import { SearchAccount } from '../../services/searchaccount';
 
 @Component({
     selector: 'saving-page',
@@ -13,7 +14,8 @@ export class SavingPage{
     public transaction: any;
     public recurringTransactions: any = [];
 
-    constructor(public navCtrl:NavController, public alertCtrl:AlertController, user:UserService){
+    constructor(public navCtrl:NavController, public alertCtrl:AlertController,
+     public NewAccountService:NewAccount, public SearchAccountService:SearchAccount){
         
     }
    showConfirm(){
@@ -24,13 +26,13 @@ export class SavingPage{
                 {
                     text: 'Create',
                     handler:() => {
-                        console.log("Create clicked") //change this to submit function
+                        console.log("didSubmit()") //change this to submit function
                     }
                 },
                 {
                     text: 'Cancel',
                     handler: () => {
-                        console.log("Cancel clicked") //change to clear all fields
+                        console.log("didSubmit()") //change to clear all fields
                     }
                 }
             ]
@@ -61,7 +63,7 @@ export class SavingPage{
                 {
                     text: 'Cancel',
                     handler: data => {
-                        console.log("Cancel clicked");
+                        console.log("didSubmit()");
                     }
                 },
                 {
