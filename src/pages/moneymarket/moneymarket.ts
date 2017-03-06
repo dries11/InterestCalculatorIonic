@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MoneyMarketBalanceValidator } from '../../validators/moneymarketBalance';
+import { MoneyMarketInterestRate } from '../../validators/moneymarketInterestRate';
 import { AlertController } from 'ionic-angular'; 
 import { NewAccount } from '../../services/newaccount';
-import { SearchAccount } from '../../services/searchaccount'
+import { SearchAccount } from '../../services/searchaccount';
+
 
 
 @Component({
@@ -11,12 +15,23 @@ import { SearchAccount } from '../../services/searchaccount'
 })
 
 export class MoneyMarketPage{
-    private user: any;
+
+    moneyMarketAccountForm : FormGroup;
+    submitAttempt: boolean = false;
+    
     public transaction: any;
     public recurringTransactions: any = [];
 
-    constructor(public navCtrl:NavController, public alertCtrl:AlertController, 
-    public NewAccountServices:NewAccount, public SearchAccountServices:SearchAccount){
+    constructor(public navCtrl:NavController, public alertCtrl:AlertController, public formBuilder: FormBuilder){
+        this.moneyMarketAccountForm = formBuilder.group({
+            firstName:['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z]*'), Validators.required])],
+            lastName:['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z]*'), Validators.required])],
+            accountType:['Money Market Account'],
+            startingBalance: ['100', Validators.compose([Validators.required, MoneyMarketBalanceValidator.isValid])],
+            interestRate: ['5', Validators.compose([MoneyMarketInterestRate.isValid, Validators.required])],
+            overdraftPenalty: ['30'],
+            requiredMinimumBalance: ['10000']
+        });
     }
 
     showConfirm(){
@@ -27,17 +42,17 @@ export class MoneyMarketPage{
                 {
                     text: 'Create',
                     handler:() => {
-                        console.log("didSubmit()") //change this to submit function
+                        console.log("Clicked Create") //change this to submit function
                     }
                 },
                 {
                     text: 'Cancel',
                     handler: () => {
-                        console.log("didSubmit()") //change to clear all fields
+                        console.log("Clicked Cancel") //change to clear all fields
                     }
                 }
             ]
-        })
+        });
         confirm.present();
         console.log(this.recurringTransactions);
     }
@@ -64,7 +79,7 @@ export class MoneyMarketPage{
                 {
                     text: 'Cancel',
                     handler: data => {
-                        console.log("didSubmit()");
+                        console.log("Clicked Cancel");
                     }
                 },
                 {
@@ -78,42 +93,18 @@ export class MoneyMarketPage{
         });
         prompt.present();
     }
-    editTransaction(transaction){
-        let prompt = this.alertCtrl.create({
-            title: 'Edit Transactions',
-            inputs: [{
-                name:'Amount',
-                placeholder: 'Amount'
-            },
-            {
-                name:'Date',
-                placeholder:'MM-DD'
-            },
-            {
-                name:'Description',
-                placeholder:'Describe the Transaction'
-            }],
-            buttons: [{
-                text: 'Cancel'
-            },
-            {
-                text: 'Save',
-                handler: data => {
-                    let index = this.recurringTransactions.indexOf(transaction);
-                    if(index > -1){
-                        this.recurringTransactions[index] = data;
-                    }
-                }
-            }
-            ]
-        });
-        prompt.present();
-    }
 
-    deleteTransaction(transaction){
-        let index = this.recurringTransactions.indexOf(transaction);
-        if(index > -1){
-            this.recurringTransactions.splice(index,1);
+        submitClicked(){
+
+        this.submitAttempt = true;
+
+        if(this.moneyMarketAccountForm.valid){
+            this.showConfirm();
+            console.log(this.moneyMarketAccountForm.value);
+        }
+        else{
+            alert("Not able to proccess your request. Try again");
         }
     }
+
 }
