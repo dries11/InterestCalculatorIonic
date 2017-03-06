@@ -13,16 +13,6 @@ import { CheckingBalanceValidator } from '../../validators/checkingBalance';
 
 export class CheckingPage{
 
-   private user: any;
-   public transaction: any;
-   public recurringTransactions: any = [];
-
-    constructor(public navCtrl:NavController, public alertCtrl:AlertController, public newAccountService:NewAccount,
-     public newSearchAccountService:SearchAccount){
-    }
-
-
-
     @ViewChild('createAccountCard') createAccountCard: any;
 
     checkingAccountForm: FormGroup;
@@ -52,53 +42,27 @@ export class CheckingPage{
                 {
                     text: 'Create',
                     handler:() => {
-                        console.log("didSubmit()") //change this to submit function
+                        console.log("Create clicked") //change this to submit function
                     }
                 },
                 {
                     text: 'Cancel',
                     handler: () => {
-                        console.log("didSubmit()") //change to clear all fields
+                        console.log("Cancel clicked") //change to clear all fields
                     }
                 }
             ]
-        })
+        });
         confirm.present();
         console.log(this.recurringTransactions);
 
     }
-
-    addTransaction(): any{
+        
+    showPrompt(): any{
         let prompt = this.alertCtrl.create({
             title: "Add Recurring Transaction",
-            message: "Enter the amount, date, and description",
-            inputs: [
-                {
-                    name: 'Amount',
-                    placeholder: 'Amount'
-                },
-                {
-                    name: 'Date',
-                    placeholder: 'MM-DD'
-                },
-                {
-                    name: 'Description',
-                    placeholder: 'Describe the Transaction'
-                }
-            ],
-            buttons: [
-                {
-                    text: 'Cancel',
-                    handler: data => {
-                        console.log("didSubmit()");
-
-}
-        showPrompt(): any{
-            let prompt = this.alertCtrl.create({
-                title: "Add Recurring Transaction",
-                message: "Enter the amount, date, and desription",
-                inputs: [
-                    {
+            message: "Enter the amount, date, and desription",      
+            inputs: [{
                         name: 'Amount',
                         placeholder: 'Amount'
                     },
@@ -130,44 +94,6 @@ export class CheckingPage{
         });
         prompt.present();
     }
-    editTransaction(transaction){
-        let prompt = this.alertCtrl.create({
-            title: 'Edit Transactions',
-            inputs: [{
-                name:'Amount',
-                placeholder: 'Amount'
-            },
-            {
-                name:'Date',
-                placeholder:'MM-DD'
-            },
-            {
-                name:'Description',
-                placeholder:'Describe the Transaction'
-            }],
-            buttons: [{
-                text: 'Cancel'
-            },
-            {
-                text: 'Save',
-                handler: data => {
-                    let index = this.recurringTransactions.indexOf(transaction);
-                    if(index > -1){
-                        this.recurringTransactions[index] = data;
-                    }
-                }
-            }
-            ]
-        });
-        prompt.present();
-    }
-
-
-    deleteTransaction(transaction){
-        let index = this.recurringTransactions.indexOf(transaction);
-        if(index > -1){
-            this.recurringTransactions.splice(index,1);
-        }
 
     submitClicked(){
 
