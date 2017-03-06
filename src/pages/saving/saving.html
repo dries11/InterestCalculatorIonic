@@ -11,19 +11,27 @@
     <ion-card-header>
       Create A New Savings Account
     </ion-card-header>
-    <ion-card-content>
+    <ion-card-content #createAccountCard>
+      <p *ngIf="submitAttempt">Please fill out all details accurately</p>
+      <form [formGroup]="savingsAccountForm">
       <ion-grid>
         <ion-row>
           <ion-col width-50>
             <ion-item>
               <ion-label floating>First Name</ion-label>
-              <ion-input type="text"></ion-input>
+              <ion-input formControlName="firstName" type="text" [class.invalid]="!savingsAccountForm.controls.firstName.valid && (savingsAccountForm.controls.firstName.dirty || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!savingsAccountForm.controls.firstName.valid && (savingsAccountForm.controls.dirty || submitAttempt)">
+              <p>Please enter a valid first name</p>
             </ion-item>
           </ion-col>
           <ion-col width-50>
             <ion-item>
               <ion-label floating>Last Name</ion-label>
-              <ion-input type="text"></ion-input>
+              <ion-input formControlName="lastName" type="text" [class.invalid]="!savingsAccountForm.controls.lastName.valid && (savingsAccountForm.controls.lastName.dirty || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!savingsAccountForm.controls.lastName.valid && (savingsAccountForm.controls.dirty || submitAttempt)">
+              <p>Please enter a valid last name</p>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -31,19 +39,25 @@
           <ion-col width-33>
             <ion-item>
               <ion-label floating>Account Type</ion-label>
-              <ion-input readonly="true" disabled="true" value="Checking"></ion-input>
+              <ion-input readonly="true" disabled="true" type="text"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col width-33>
             <ion-item>
-              <ion-label floating>Enter the starting balance</ion-label>
-              <ion-input type="number"min="100"></ion-input>
+              <ion-label floating>Starting Balance</ion-label>
+              <ion-input formControlName="startingBalance" type="number" [class.invalid]="!savingsAccountForm.controls.startingBalance.valid && (savingsAccountForm.controls.startingBalance.dirty || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!savingsAccountForm.controls.startingBalance.valid && (savingsAccountForm.controls.dirty || submitAttempt)">
+              <p>Please enter a valid starting balance</p>
             </ion-item>
           </ion-col>
           <ion-col width-33>
             <ion-item>
               <ion-label floating>Interest Rate</ion-label>
-              <ion-input type="number"min="0.75" max="1.50" value="1"></ion-input>
+              <ion-input type="number" formControlName="interestRate" [class.invalid]="!savingsAccountForm.controls.interestRate.valid && (savingsAccountForm.controls.interestRate.dirty || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!savingsAccountForm.controls.interestRate.valid && (savingsAccountForm.controls.dirty || submitAttempt)">
+              <p>Please enter a valid interest rate</p>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -57,11 +71,12 @@
           <ion-col width-50>
             <ion-item>
               <ion-label floating>Required Minimum Balance</ion-label>
-              <ion-input type="number" min="25" max="300" value="100"></ion-input>
+              <ion-input type="number" disabled="true" value="100"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
       </ion-grid>
+      </form>
       <button ion-button icon-right (click)="addTransaction()">
         Adding Recuring Transaction
         <ion-icon name="add-circle"></ion-icon>
@@ -101,7 +116,7 @@
           </ion-row>
         </ion-grid>
       </ion-list>
-      <button ion-button (click)="showConfirm()">Submit</button>      
+      <button ion-button (click)="submitClicked()">Submit</button>      
     </ion-card-content>
   </ion-card>  
 </ion-content>

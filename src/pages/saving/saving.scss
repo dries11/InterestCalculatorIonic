@@ -14,3 +14,7 @@ ion-header{
         color: color($colors, secondary);
     }
 }
+
+.invalid{
+    border: 1px solid #ea6153;
+}

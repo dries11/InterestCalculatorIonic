@@ -10,6 +10,8 @@ ion-header{
 .card{
     border: 3px solid black;
     background-color: color($colors, danger);
+    margin: 100px auto;
+    width: 800px;
     button{
         color: color($colors, secondary);
     }
