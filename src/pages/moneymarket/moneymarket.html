@@ -12,19 +12,27 @@
       Create A New Money Market Account
     </ion-card-header>
     <ion-card-content>
+      <p *ngIf="subitAttempt">Please fill out all details accurately </p>
+      <form [formGroup]="moneyMarketAccountForm">
       <ion-grid>
         <ion-row>
           <ion-col width-50>
             <ion-item>
               <ion-label floating>First Name</ion-label>
-              <ion-input type="text"></ion-input>
+              <ion-input formControlName="firstName" type="text" [class.invalid]="!moneyMarketAccountForm.controls.firstName.valid && (moneyMarketAccountForm.controls.firstName.dirty || subitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!moneyMarketAccountForm.controls.firstName.valid && (moneyMarketAccountForm.controls.dirty || submitAttempt)">
+              <p> Please enter a valid first name </p>
             </ion-item>
           </ion-col>
           <ion-col width-50>
             <ion-item>
               <ion-label floating>Last Name</ion-label>
-              <ion-input type="text"></ion-input>
+              <ion-input formControlName="lastName"type="text" [class.invalid]="!moneyMarketAccountForm.controls.lastName.valid && (moneyMarketAccountForm.controls.lastName.dirty || subitAttempt)"></ion-input>
             </ion-item>
+          <ion-item *ngIf="!moneyMarketAccountForm.controls.lastName.valid && (moneyMarketAccountForm.controls.dirty || submitAttempt)">
+            <p>Please enter a valid last name</p>
+          </ion-item>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -37,13 +45,19 @@
           <ion-col width-33>
             <ion-item>
               <ion-label floating>Enter the starting balance</ion-label>
-              <ion-input type="number" min="10000"></ion-input>
+              <ion-input formControlName="startingBalance" type="number" [class.invalid]="!moneyMarketAccountForm.controls.startingBalance.valid && (moneyMarketAccountForm.controls.startingBalance.dirty || submitAttempt)"></ion-input>
             </ion-item>
+          <ion-item *ngIf="!moneyMarketAccountForm.controls.startingBalance.valid && (moneyMarketAccountForm.controls.dirty || submitAttempt)">
+            <p>Please enter a valid starting balance</p>
+          </ion-item>
           </ion-col>
           <ion-col width-33>
-            <ion-item>
+           <ion-item>
               <ion-label floating>Interest Rate</ion-label>
-              <ion-input type="number" step="0.5" value="5" min="3.0" max="6.0"></ion-input>
+              <ion-input type="number" formControlName="interestRate" [class.invalid]="!savingsAccountForm.controls.interestRate.valid && (savingsAccountForm.controls.interestRate.dirty || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!savingsAccountForm.controls.interestRate.valid && (savingsAccountForm.controls.dirty || submitAttempt)">
+              <p>Please enter a valid interest rate</p>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -62,6 +76,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+      </form>
       <button ion-button icon-right (click)="addTransaction()">
         Add Recurring Transaction
         <ion-icon name="add-circle"></ion-icon>
