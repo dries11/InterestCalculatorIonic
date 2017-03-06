@@ -7,8 +7,8 @@ import { CheckingPage } from '../pages/checking/checking';
 import { MoneyMarketPage } from '../pages/moneymarket/moneymarket';
 import { SavingPage } from '../pages/saving/saving'
 import { Http} from '@angualr/http';
-import { NewAccount} from '../services/newaccount';
-import { SearchAccount } from '../services/searchaccount'
+import { SearchAccountService } from '../services/searchaccount'
+import { NewAccountService } from '../services/newaccount';
 
 @NgModule({
   declarations: [
@@ -31,6 +31,6 @@ import { SearchAccount } from '../services/searchaccount'
     MoneyMarketPage,
     SavingPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, NewAccount, SearchAccount ]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, NewAccountService, SearchAccountService]
 })
 export class AppModule {}

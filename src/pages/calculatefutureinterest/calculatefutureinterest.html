@@ -18,7 +18,7 @@
               <ion-col width-33>
                 <ion-item>
                   <ion-label floating>Enter Account Number</ion-label>
-                  <ion-input formControlNa="accountNumber" type="number" [class.invalid]="!calculateInterestSearchForm.controls.accountNumber.valid && (calculateInterestSearchForm.controls.accountNumber.dirty || submitAttempt)"></ion-input>
+                  <ion-input formControlName="accountNumber" type="number" [class.invalid]="!calculateInterestSearchForm.controls.accountNumber.valid && (calculateInterestSearchForm.controls.accountNumber.dirty || submitAttempt)"></ion-input>
                 </ion-item>
                 <ion-item *ngIf="!calculateInterestSearchForm.controls.accountNumber.valid && (calculateInterestSearchForm.controls.dirty || submitAttempt)">
                   <p>Please enter a valid account number</p>
@@ -52,9 +52,6 @@
       </form>
     </ion-card-content>
   </ion-card>
-</ion-content>
-
-<ion-content padding>
   <ion-card>
     <ion-card-header>
       Interest Forecast Calculations

@@ -4,8 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SavingsBalanceValidator } from '../../validators/savingsBalance';
 import { SavingsInterestRate } from '../../validators/savingsInterestRate';
 import { AlertController } from 'ionic-angular';
-import { NewAccount } from '../../services/newaccount';
-import { SearchAccount } from '../../services/searchaccount';
 
 @Component({
     selector: 'saving-page',

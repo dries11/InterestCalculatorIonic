@@ -45,9 +45,9 @@
           <ion-col width-33>
             <ion-item>
               <ion-label floating>Starting Balance</ion-label>
-              <ion-input formControlName="startingBalance" type="number" [class.invalid]="!checkingAccountForm.controls.startingBalance.valid && (checkingAccountForm.controls.startingBalance.dirty || submitAttempt)"></ion-input>
+              <ion-input formControlName="balance" type="number" [class.invalid]="!checkingAccountForm.controls.balance.valid && (checkingAccountForm.controls.balance.dirty || submitAttempt)"></ion-input>
             </ion-item>
-            <ion-item *ngIf="!checkingAccountForm.controls.startingBalance.valid && (checkingAccountForm.controls.dirty || submitAttempt)">
+            <ion-item *ngIf="!checkingAccountForm.controls.balance.valid && (checkingAccountForm.controls.dirty || submitAttempt)">
               <p>Please enter a valid starting balance</p>
             </ion-item>
           </ion-col>

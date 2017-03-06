@@ -5,6 +5,7 @@ import { AlertController } from 'ionic-angular';
 import { CheckingBalanceValidator } from '../../validators/checkingBalance';
 import { HomePage } from '../../pages/home/home';
 import { CalculateFutureInterestPage } from '../../pages/calculatefutureinterest/calculatefutureinterest';
+import { NewAccountService } from '../../services/newaccount';
 
 @Component({
     selector: 'checking-page',
@@ -24,12 +25,12 @@ export class CheckingPage{
     public transaction: any;
     public recurringTransactions: any = [];
 
-    constructor(public navCtrl:NavController, public alertCtrl:AlertController, public formBuilder: FormBuilder){
+    constructor(public navCtrl:NavController, public alertCtrl:AlertController, public formBuilder: FormBuilder, public newAccountService: NewAccountService){
         this.checkingAccountForm = formBuilder.group({
             firstName:['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z]*'), Validators.required])],
             lastName:['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z]*'), Validators.required])],
             accountType:['Checking Account'],
-            startingBalance: ['', Validators.compose([Validators.required, CheckingBalanceValidator.isValid])],
+            balance: ['', Validators.compose([Validators.required, CheckingBalanceValidator.isValid])],
             interestRate: ['0'],
             overdraftPenalty: ['30'],
             requiredMinimumBalance: ['0'],
@@ -47,6 +48,7 @@ export class CheckingPage{
                 {
                     text: 'Create',
                     handler:() => {
+                        this.newAccountService.didSubmit(this.checkingAccountForm.value);
                         this.switchPage();
                         console.log("Create clicked"); //change this to submit function
                     }

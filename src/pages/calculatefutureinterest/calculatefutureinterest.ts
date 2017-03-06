@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
+import { SearchAccountService } from '../../services/searchaccount';
 
 @Component({
     selector: 'calculatefutureinterest-page',
@@ -15,7 +16,7 @@ export class CalculateFutureInterestPage{
     
     submitAttempt: boolean = false;
 
-    constructor(public navCtrl:NavController, public formBuilder: FormBuilder, public loadingCtrl: LoadingController){
+    constructor(public navCtrl:NavController, public formBuilder: FormBuilder, public loadingCtrl: LoadingController, public searchAccountService:SearchAccountService){
         this.calculateInterestSearchForm = formBuilder.group({
             accountNumber:['',Validators.compose([Validators.pattern('[0-9]*')])],
             firstName:['',Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z]*')])],
@@ -28,6 +29,8 @@ export class CalculateFutureInterestPage{
 
         if(this.calculateInterestSearchForm.valid){
             this.presentLoading();
+            console.log(this.calculateInterestSearchForm);
+            this.searchAccountService.didSubmit(this.calculateInterestSearchForm.get("accountNumber").value);
             console.log(this.calculateInterestSearchForm.value);
         }
         else{
