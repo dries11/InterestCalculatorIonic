@@ -59,19 +59,15 @@ export class SavingPage{
     addTransaction(): any{
         let prompt = this.alertCtrl.create({
             title: "Add Recurring Transaction",
-            message: "Enter the amount, date, and description",
+            message: "Enter the amount, and frequency of payments in days",
             inputs: [
                 {
                     name: 'Amount',
                     placeholder: 'Amount'
                 },
                 {
-                    name: 'Date',
-                    placeholder: 'MM-DD'
-                },
-                {
-                    name: 'Description',
-                    placeholder: 'Describe the Transaction'
+                    name: 'Frequency',
+                    placeholder: 'Number of Days'
                 }
             ],
             buttons: [

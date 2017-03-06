@@ -12,24 +12,34 @@
       Search For Account
     </ion-card-header>
     <ion-card-content>
+      <form [formGroup]="calculateInterestSearchForm">
           <ion-grid>
             <ion-row>
               <ion-col width-33>
                 <ion-item>
                   <ion-label floating>Enter Account Number</ion-label>
-                  <ion-input type="number" min="0"></ion-input>
+                  <ion-input formControlNa="accountNumber" type="number" [class.invalid]="!calculateInterestSearchForm.controls.accountNumber.valid && (calculateInterestSearchForm.controls.accountNumber.dirty || submitAttempt)"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="!calculateInterestSearchForm.controls.accountNumber.valid && (calculateInterestSearchForm.controls.dirty || submitAttempt)">
+                  <p>Please enter a valid account number</p>
                 </ion-item>
               </ion-col>
               <ion-col width-33>
                 <ion-item>
-                  <ion-label floating>Enter First Name</ion-label>
-                  <ion-input type="text"></ion-input>
+                  <ion-label floating>First Name</ion-label>
+                  <ion-input formControlName="firstName" type="text" [class.invalid]="!calculateInterestSearchForm.controls.firstName.valid && (calculateInterestSearchForm.controls.firstName.dirty || submitAttempt)"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="!calculateInterestSearchForm.controls.firstName.valid && (calculateInterestSearchForm.controls.dirty || submitAttempt)">
+                  <p>Please enter a valid first name</p>
                 </ion-item>
               </ion-col>
               <ion-col width-33>
                 <ion-item>
-                  <ion-label floating>Enter Last Name</ion-label>
-                  <ion-input type="text"></ion-input>
+                  <ion-label floating>Last Name</ion-label>
+                  <ion-input formControlName="lastName" type="text" [class.invalid]="!calculateInterestSearchForm.controls.lastName.valid && (calculateInterestSearchForm.controls.lastName.dirty || submitAttempt)"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="!calculateInterestSearchForm.controls.lastName.valid && (calculateInterestSearchForm.controls.dirty || submitAttempt)">
+                  <p>Please enter a valid last name</p>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -39,6 +49,92 @@
               </ion-col>
             </ion-row>
           </ion-grid>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      Interest Forecast Calculations
+    </ion-card-header>
+    <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col width-33>
+              <ion-item>
+                <ion-label floating>Account ID</ion-label>
+                <ion-input type="number" disabled="true"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col width-33>
+              <ion-item>
+                <ion-label floating>First Name</ion-label>
+                <ion-input type="text" disabled="true"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col width-33>
+              <ion-item>
+                <ion-label floating>Last Name</ion-label>
+                <ion-input type="text" disabled="true"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col width-33>
+              <ion-item>
+                <ion-label floating>Balance</ion-label>
+                <ion-input type="number" disabled="true"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col width-33>
+              <ion-item>
+                <ion-label floating>Interest Rate</ion-label>
+                <ion-input type="number" disabled="true"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col width-33>
+              <ion-item>
+                <ion-label floating>Overdraft Fee</ion-label>
+                <ion-input type="number" disabled="true"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col width-33>
+              <ion-item>
+                <ion-label floating>Required Minimum Balance</ion-label>
+                <ion-input type="number" disabled="true"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col width-33>
+              <ion-item>
+                <ion-label floating>Interval</ion-label>
+                <ion-input type="number" min="0"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col width-33>
+              <ion-item>
+                <ion-label floating>Monetary Amount of Recurring Transactions</ion-label>
+                <ion-input type="number" disabled="true"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label floating>Date From Today</ion-label>
+                <ion-datetime displayFormat="MM/DD/YYYY" min="2017" max="2050"></ion-datetime>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <button ion-button icon-right color="primary">Calculate<ion-icon name="cash"></ion-icon></button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
     </ion-card-content>
   </ion-card>
 </ion-content>

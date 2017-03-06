@@ -4,8 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MoneyMarketBalanceValidator } from '../../validators/moneymarketBalance';
 import { MoneyMarketInterestRate } from '../../validators/moneymarketInterestRate';
 import { AlertController } from 'ionic-angular'; 
-import { NewAccount } from '../../services/newaccount';
-import { SearchAccount } from '../../services/searchaccount';
+
 
 
 
@@ -27,7 +26,7 @@ export class MoneyMarketPage{
             firstName:['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z]*'), Validators.required])],
             lastName:['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z]*'), Validators.required])],
             accountType:['Money Market Account'],
-            startingBalance: ['100', Validators.compose([Validators.required, MoneyMarketBalanceValidator.isValid])],
+            startingBalance: ['10000', Validators.compose([Validators.required, MoneyMarketBalanceValidator.isValid])],
             interestRate: ['5', Validators.compose([MoneyMarketInterestRate.isValid, Validators.required])],
             overdraftPenalty: ['30'],
             requiredMinimumBalance: ['10000']
@@ -60,19 +59,15 @@ export class MoneyMarketPage{
     addTransaction(): any{
         let prompt = this.alertCtrl.create({
             title: "Add Recurring Transaction",
-            message: "Enter the amount, date, and description",
+            message: "Enter the amount, and frequency of payments in days",
             inputs: [
                 {
                     name: 'Amount',
                     placeholder: 'Amount'
                 },
                 {
-                    name: 'Date',
-                    placeholder: 'MM-DD'
-                },
-                {
-                    name: 'Description',
-                    placeholder: 'Describe the Transaction'
+                    name: 'Frequency',
+                    placeholder: 'Number of Days'
                 }
             ],
             buttons: [

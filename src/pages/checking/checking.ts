@@ -2,9 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from 'ionic-angular';
-import { NewAccount} from '../../services/newaccount';
-import { SearchAccount} from '../../services/searchaccount'
 import { CheckingBalanceValidator } from '../../validators/checkingBalance';
+import { HomePage } from '../../pages/home/home';
+import { CalculateFutureInterestPage } from '../../pages/calculatefutureinterest/calculatefutureinterest';
 
 @Component({
     selector: 'checking-page',
@@ -14,6 +14,9 @@ import { CheckingBalanceValidator } from '../../validators/checkingBalance';
 export class CheckingPage{
 
     @ViewChild('createAccountCard') createAccountCard: any;
+
+    homePage: any;
+    cfiPage: any;
 
     checkingAccountForm: FormGroup;
     submitAttempt: boolean = false;
@@ -31,6 +34,8 @@ export class CheckingPage{
             overdraftPenalty: ['30'],
             requiredMinimumBalance: ['0'],
         });
+        this.homePage = HomePage;
+        this.cfiPage = CalculateFutureInterestPage;
     }
     
 
@@ -42,7 +47,8 @@ export class CheckingPage{
                 {
                     text: 'Create',
                     handler:() => {
-                        console.log("Create clicked") //change this to submit function
+                        this.switchPage();
+                        console.log("Create clicked"); //change this to submit function
                     }
                 },
                 {
@@ -61,18 +67,14 @@ export class CheckingPage{
     showPrompt(): any{
         let prompt = this.alertCtrl.create({
             title: "Add Recurring Transaction",
-            message: "Enter the amount, date, and desription",      
+            message: "Enter the amount, and frequency of payments in days",      
             inputs: [{
                         name: 'Amount',
                         placeholder: 'Amount'
                     },
                     {
-                      name: 'Date',
-                      placeholder: 'MM-DD'  
-                    },
-                    {
-                        name: 'Description',
-                        placeholder: ' Describe the Transaction'
+                      name: 'Frequency',
+                      placeholder: 'Number of Days'  
                     }
                 ],
                 buttons: [
@@ -106,5 +108,28 @@ export class CheckingPage{
         else{
             alert("Not able to proccess your request. Try again");
         }
+    }
+
+    switchPage(){
+
+        let prompt = this.alertCtrl.create({
+            title: "Would you like to calculate future interest?",
+            message: "Choose one below",
+            buttons:[
+                {
+                    text:'Yes',
+                    handler:() => {
+                        this.navCtrl.push(this.cfiPage);
+                    }
+                },
+                {
+                    text:'No',
+                    handler:() => { 
+                        this.navCtrl.push(this.homePage);
+                    }
+                }
+            ]
+        });
+        prompt.present();
     }
 }

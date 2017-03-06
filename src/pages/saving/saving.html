@@ -39,7 +39,7 @@
           <ion-col width-33>
             <ion-item>
               <ion-label floating>Account Type</ion-label>
-              <ion-input readonly="true" disabled="true" type="text"></ion-input>
+              <ion-input readonly="true" disabled="true" type="text" value="Savings Account"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col width-33>
@@ -91,27 +91,19 @@
               Amount
             </ion-col>
             <ion-col wdith-25>
-              Date
-            </ion-col>
-            <ion-col witth-50>
-              Description
+              Frequency
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col width-25>
               <ion-item *ngFor="let transaction of recurringTransactions">
-                {{transaction.Amount}}
+                {{transaction.Amount}} Dollars
               </ion-item>
             </ion-col>
             <ion-col width-25>    
               <ion-item *ngFor="let transaction of recurringTransactions">
-                {{transaction.Date}} 
+                Every {{transaction.Frequency}} days
               </ion-item>
-            </ion-col>
-            <ion-col width-50>
-            <ion-item *ngFor="let transaction of recurringTransactions">
-              {{transaction.Description}}
-            </ion-item>
             </ion-col>
           </ion-row>
         </ion-grid>
